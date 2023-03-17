@@ -8,12 +8,12 @@ class CreateEmployeeComponent extends Component {
         this.state = {
             // step 2
             id: this.props.match.params.id,
-            firstName: '',
-            lastName: '',
-            emailId: ''
+            name: '',
+            userName: '',
+            email: ''
         }
-        this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
-        this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
+        this.changeNameHandler = this.changeNameHandler.bind(this);
+        this.changeUserNameHandler = this.changeUserNameHandler.bind(this);
         this.saveOrUpdateEmployee = this.saveOrUpdateEmployee.bind(this);
     }
 
@@ -26,16 +26,16 @@ class CreateEmployeeComponent extends Component {
         }else{
             EmployeeService.getEmployeeById(this.state.id).then( (res) =>{
                 let employee = res.data;
-                this.setState({firstName: employee.firstName,
-                    lastName: employee.lastName,
-                    emailId : employee.emailId
+                this.setState({name: employee.name,
+                    userName: employee.userName,
+                    email : employee.email
                 });
             });
         }        
     }
     saveOrUpdateEmployee = (e) => {
         e.preventDefault();
-        let employee = {firstName: this.state.firstName, lastName: this.state.lastName, emailId: this.state.emailId};
+        let employee = {name: this.state.name, userName: this.state.userName, email: this.state.email};
         console.log('employee => ' + JSON.stringify(employee));
 
         // step 5
@@ -50,16 +50,16 @@ class CreateEmployeeComponent extends Component {
         }
     }
     
-    changeFirstNameHandler= (event) => {
-        this.setState({firstName: event.target.value});
+    changeNameHandler= (event) => {
+        this.setState({name: event.target.value});
     }
 
-    changeLastNameHandler= (event) => {
-        this.setState({lastName: event.target.value});
+    changeUserNameHandler= (event) => {
+        this.setState({userName: event.target.value});
     }
 
     changeEmailHandler= (event) => {
-        this.setState({emailId: event.target.value});
+        this.setState({email: event.target.value});
     }
 
     cancel(){
@@ -86,19 +86,19 @@ class CreateEmployeeComponent extends Component {
                                 <div className = "card-body">
                                     <form>
                                         <div className = "form-group">
-                                            <label> First Name: </label>
-                                            <input placeholder="First Name" name="firstName" className="form-control" 
-                                                value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
+                                            <label> Name: </label>
+                                            <input placeholder="Name" name="name" className="form-control" 
+                                                value={this.state.name} onChange={this.changeNameHandler}/>
                                         </div>
                                         <div className = "form-group">
-                                            <label> Last Name: </label>
-                                            <input placeholder="Last Name" name="lastName" className="form-control" 
-                                                value={this.state.lastName} onChange={this.changeLastNameHandler}/>
+                                            <label> User Name: </label>
+                                            <input placeholder="User Name" name="userName" className="form-control" 
+                                                value={this.state.userName} onChange={this.changeUserNameHandler}/>
                                         </div>
                                         <div className = "form-group">
-                                            <label> Email Id: </label>
-                                            <input placeholder="Email Address" name="emailId" className="form-control" 
-                                                value={this.state.emailId} onChange={this.changeEmailHandler}/>
+                                            <label> Email : </label>
+                                            <input placeholder="Email Address" name="email" className="form-control" 
+                                                value={this.state.email} onChange={this.changeEmailHandler}/>
                                         </div>
 
                                         <button className="btn btn-success" onClick={this.saveOrUpdateEmployee}>Save</button>
